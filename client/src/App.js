@@ -34,13 +34,13 @@ const App = () => {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/browse" element={<Browse />} />
           <Route path="/survey" element={<Survey />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/browse" element={<Browse />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,0 +1,48 @@
+.filter-menu {
+    padding: 16px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    width: 200px;
+    border-radius: 8px;
+  }
+
+  .filter-menu h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .filter-category,
+  .filter-cost,
+  .filter-color,
+  .filter-size {
+    margin-bottom: 20px;
+  }
+
+  .filter-category h4,
+  .filter-cost h4,
+  .filter-color h4,
+  .filter-size h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .filter-category label,
+  .filter-color label,
+  .filter-size label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+
+  .filter-cost input[type="range"] {
+    width: 100%;
+  }
+
+  .filter-cost p {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  input[type="checkbox"] {
+    margin-right: 8px;
+  }
