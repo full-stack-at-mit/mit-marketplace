@@ -40,6 +40,7 @@ const App = () => {
         <Route element={<RestrictedRoutes />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          // change this back to private routes for production
           <Route path="/browse" element={<Browse />} />
         </Route>
       </Routes>
