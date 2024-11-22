@@ -15,6 +15,7 @@ import Survey from "./pages/Survey.js";
 import UploadForm from "./pages/UploadForm.js";
 import { useSelector } from "react-redux";
 import "./stylesheets/utilities.css";
+import "./index.css";
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
