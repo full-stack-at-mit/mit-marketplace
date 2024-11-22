@@ -4,7 +4,7 @@ import FilterMenu from "../components/FilterMenu";
 import ProductCard from "../components/ItemCard";
 import SearchAndFilter from "../components/SearchAndFilter";
 import "../stylesheets/Browse.css";
-import { getAllProducts } from "../api/products";
+import { getProducts, getServices } from "../api/products";
 
 const Browse = () => {
   const [activeView, setActiveView] = useState("products");
@@ -14,20 +14,39 @@ const Browse = () => {
   const [products, setProducts] = useState([]);
   const [services, setServices] = useState([]);
 
+  // hook for getting products
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await getAllProducts();
-        console.log("Fetched data:", response.data); // Log the response for debugging
-        setProducts(response.data.products || []); // Ensure default to an empty array
-        setServices(response.data.services || []);
+        const response = await getProducts();
+        console.log("Fetched products:", response.data);
+        setProducts(response.data.products || []);
       } catch (error) {
-        console.error("Error fetching items:", error);
+        console.error("Error fetching products:", error);
       }
     };
 
-    fetchData();
-  }, []);
+    if (activeView === "products") {
+      fetchProducts();
+    }
+  }, [activeView]);
+
+  // hook for getting services
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await getServices();
+        console.log("Fetched services:", response.data);
+        setServices(response.data.services || []);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+
+    if (activeView === "services") {
+      fetchServices();
+    }
+  }, [activeView]);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
   const handleFilterClick = (filter) => setSelectedFilter(filter);
