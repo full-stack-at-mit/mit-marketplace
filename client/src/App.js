@@ -14,6 +14,7 @@ import Browse from "./pages/Browse.js";
 import Survey from "./pages/Survey.js";
 import UploadForm from "./pages/UploadForm.js";
 import { useSelector } from "react-redux";
+import "./stylesheets/utilities.css";
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -36,6 +37,7 @@ const App = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/survey" element={<Survey />} />
+          <Route path="/browse" element={<Browse />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>
