@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../stylesheets/UploadForm.css";
 import { createProduct } from "../api/products";
+import Layout from "../components/Layout";
 
 const UploadForm = () => {
   const [formData, setFormData] = useState({
@@ -57,125 +58,127 @@ const UploadForm = () => {
   };
 
   return (
-    <div className="upload-form-container">
-      <h2>Upload a Product or Service</h2>
-      <form onSubmit={handleSubmit} className="upload-form">
-        {/* Name */}
-        <label>
-          Product/Service Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
+    <Layout>
+      <div className="upload-form-container">
+        <h2>Upload a Product or Service</h2>
+        <form onSubmit={handleSubmit} className="upload-form">
+          {/* Name */}
+          <label>
+            Product/Service Name:
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        {/* Price */}
-        <label>
-          Price:
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          {/* Price */}
+          <label>
+            Price:
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        {/* Description */}
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          {/* Description */}
+          <label>
+            Description:
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        {/* Contact */}
-        <label>
-          Contact Info:
-          <input
-            type="text"
-            name="contact"
-            value={formData.contact}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          {/* Contact */}
+          <label>
+            Contact Info:
+            <input
+              type="text"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        {/* Category */}
-        <label>
-          Category:
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Category</option>
-            <option value="product">Product</option>
-            <option value="service">Service</option>
-          </select>
-        </label>
+          {/* Category */}
+          <label>
+            Category:
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="product">Product</option>
+              <option value="service">Service</option>
+            </select>
+          </label>
 
-        {/* Condition */}
-        <label>
-          Condition:
-          <select
-            name="condition"
-            value={formData.condition}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Condition</option>
-            <option value="new">New</option>
-            <option value="used">Used</option>
-            <option value="refurbished">Refurbished</option>
-          </select>
-        </label>
+          {/* Condition */}
+          <label>
+            Condition:
+            <select
+              name="condition"
+              value={formData.condition}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Condition</option>
+              <option value="new">New</option>
+              <option value="used">Used</option>
+              <option value="refurbished">Refurbished</option>
+            </select>
+          </label>
 
-        {/* Pickup Details */}
-        <label>
-          Pickup Details:
-          <input
-            type="text"
-            name="pickupDetails"
-            value={formData.pickupDetails}
-            onChange={handleChange}
-          />
-        </label>
+          {/* Pickup Details */}
+          <label>
+            Pickup Details:
+            <input
+              type="text"
+              name="pickupDetails"
+              value={formData.pickupDetails}
+              onChange={handleChange}
+            />
+          </label>
 
-        {/* Date Added */}
-        <label>
-          Date Added:
-          <input
-            type="date"
-            name="dateAdded"
-            value={formData.dateAdded}
-            onChange={handleChange}
-            disabled
-          />
-        </label>
+          {/* Date Added */}
+          <label>
+            Date Added:
+            <input
+              type="date"
+              name="dateAdded"
+              value={formData.dateAdded}
+              onChange={handleChange}
+              disabled
+            />
+          </label>
 
-        {/* Images */}
-        <label>
-          Upload Images:
-          <input
-            type="file"
-            name="images"
-            accept="image/*"
-            multiple
-            onChange={handleImageUpload}
-          />
-        </label>
+          {/* Images */}
+          <label>
+            Upload Images:
+            <input
+              type="file"
+              name="images"
+              accept="image/*"
+              multiple
+              onChange={handleImageUpload}
+            />
+          </label>
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </Layout>
   );
 };
 

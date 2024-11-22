@@ -21,6 +21,9 @@ const Navbar = () => {
             <NavLink to="/dashboard" className="mx-3">
               <span>Dashboard</span>
             </NavLink>
+            <NavLink to="/upload" className="mx-3">
+              <span>Upload</span>
+            </NavLink>
           </div>
         ) : (
           <div>
