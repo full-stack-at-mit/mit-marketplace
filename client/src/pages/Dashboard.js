@@ -11,13 +11,20 @@ const ProfileSection = ({ profile, resetProfile }) => {
   const firstRef = useRef(null),
     lastRef = useRef(null);
 
-  const update = () => {
+  const update = async () => {
     if (!(firstRef && firstRef.current && lastRef && lastRef.current)) return;
-    updateProtectedInfo({
-      first_name: firstRef.current.value,
-      last_name: lastRef.current.value,
-      interests: profile.interests,
-    }).then(() => setIsUpdating(false));
+
+    try {
+      await updateProtectedInfo({
+        first_name: firstRef.current.value,
+        last_name: lastRef.current.value,
+        interests: profile.interests,
+      });
+      resetProfile();
+      setIsUpdating(false);
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
   };
 
   if (!isUpdating) {
@@ -83,16 +90,22 @@ const IntroSection = ({ profile, resetProfile }) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const interestsRef = useRef(null);
 
-  const update = () => {
+  const update = async () => {
     if (!(interestsRef && interestsRef.current)) return;
-    updateProtectedInfo({
-      first_name: profile.first_name,
-      last_name: profile.last_name,
-      interests: interestsRef.current.value,
-    }).then(() => {
+
+    try {
+      await updateProtectedInfo({
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        interests: interestsRef.current.value,
+      });
+      // refresh profile data
       resetProfile();
+      // close the update form
       setIsUpdating(false);
-    });
+    } catch (error) {
+      console.error("Failed to update intro:", error);
+    }
   };
 
   if (!isUpdating) {
