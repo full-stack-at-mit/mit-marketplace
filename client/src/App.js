@@ -13,6 +13,7 @@ import Login from "./pages/Login.js";
 import Browse from "./pages/Browse.js";
 import Survey from "./pages/Survey.js";
 import { useSelector } from "react-redux";
+import "./stylesheets/utilities.css";
 
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);

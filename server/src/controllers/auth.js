@@ -51,7 +51,9 @@ exports.updateProfile = async (req, res) => {
 
     // if no rows are returned, the user was not found
     if (result.rows.length === 0) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     // send the updated profile information back as the response

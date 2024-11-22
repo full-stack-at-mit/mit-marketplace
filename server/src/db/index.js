@@ -1,10 +1,11 @@
 const { Pool } = require("pg");
+const { DB_USER, DB_HOST, DB_PASSWORD } = require("../constants");
 
 const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
+  user: DB_USER,
+  host: DB_HOST,
   database: "mit_marketplace",
-  password: "root",
+  password: DB_PASSWORD,
   port: 5432,
 });
 
