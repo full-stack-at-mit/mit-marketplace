@@ -7,14 +7,13 @@ import "../stylesheets/Browse.css";
 import { getProducts, getServices } from "../api/products";
 
 const Browse = () => {
-  const [activeView, setActiveView] = useState("products");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("New");
   const [costRange, setCostRange] = useState([0, 100]);
   const [products, setProducts] = useState([]);
   const [services, setServices] = useState([]);
 
-  // hook for getting products
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -26,12 +25,10 @@ const Browse = () => {
       }
     };
 
-    if (activeView === "products") {
-      fetchProducts();
-    }
-  }, [activeView]);
+    fetchProducts();
+  }, []);
 
-  // hook for getting services
+  // Fetch services
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -43,58 +40,37 @@ const Browse = () => {
       }
     };
 
-    if (activeView === "services") {
-      fetchServices();
-    }
-  }, [activeView]);
+    fetchServices();
+  }, []);
 
+  // Handlers
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
   const handleFilterClick = (filter) => setSelectedFilter(filter);
   const handleCostChange = (newCostRange) => setCostRange(newCostRange);
 
-  const itemsToDisplay =
-    activeView === "products"
-      ? (products || []).filter(
-          (product) =>
-            product.price >= costRange[0] &&
-            product.price <= costRange[1] &&
-            (product.title?.toLowerCase() || "").includes(
-              searchQuery.toLowerCase()
-            )
-        )
-      : (services || []).filter((service) =>
-          (service.title?.toLowerCase() || "").includes(
-            searchQuery.toLowerCase()
-          )
-        );
+  // Combine products and services, then filter
+  const combinedItems = [...products, ...services].filter(
+    (item) =>
+      item.price >= costRange[0] &&
+      item.price <= costRange[1] &&
+      (item.title?.toLowerCase() || "").includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Layout>
-      {/* Toggle Header */}
-      <div className="toggle-header">
-        <div
-          className={`toggle-option ${
-            activeView === "products" ? "active" : ""
-          }`}
-          onClick={() => setActiveView("products")}
-        >
-          Products
-        </div>
-        <div
-          className={`toggle-option ${
-            activeView === "services" ? "active" : ""
-          }`}
-          onClick={() => setActiveView("services")}
-        >
-          Services
-        </div>
-      </div>
-
-      <div className="products-container">
-        <aside className="sidebar">
-          <FilterMenu onCostChange={handleCostChange} />
+      <div className="browse-page flex h-screen pt-16">
+        {/* Sidebar Filter */}
+        <aside className="filter-bar bg-white w-1/5 p-4 shadow-lg shadow-gray-400">
+          <FilterMenu
+            onCostChange={handleCostChange}
+            onSearchChange={handleSearchChange}
+            searchQuery={searchQuery}
+          />
         </aside>
-        <main className="main-content">
+
+        {/* Main Content */}
+        <main className="main-content flex-1">
+          {/* Content */}
           <SearchAndFilter
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}
@@ -102,8 +78,8 @@ const Browse = () => {
             onFilterClick={handleFilterClick}
           />
 
-          <div className="product-grid">
-            {itemsToDisplay.map((item) => (
+          <div className="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+            {combinedItems.map((item) => (
               <ProductCard key={item.id} product={item} />
             ))}
           </div>

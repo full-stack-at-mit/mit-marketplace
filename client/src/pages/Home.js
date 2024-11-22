@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const Home = () => {
   return (
     <Layout>
-      <div className="container text-center my-5">
+      <div className="container text-center pt-32">
       <h1>Welcome to College Marketplace</h1>
       <p className="mt-3">
         College Marketplace is an online platform designed for students to buy, sell, and showcase products and services.

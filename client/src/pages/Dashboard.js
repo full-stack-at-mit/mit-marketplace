@@ -29,7 +29,7 @@ const ProfileSection = ({ profile, resetProfile }) => {
 
   if (!isUpdating) {
     return (
-      <div className="profile-section">
+      <div className="profile-section pt-16">
         <div className="profile-photo">
           <img src={profile.profilePhoto || Profile} alt="Profile" />
         </div>

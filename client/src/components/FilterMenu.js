@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../stylesheets/FilterMenu.css";
+import { FaSearch } from "react-icons/fa"; // Import search icon
 
-const FilterMenu = ({ onCostChange }) => {
+const FilterMenu = ({ onCostChange, onSearchChange, searchQuery }) => {
   const [filters, setFilters] = useState({
     categories: {
       products: true,
@@ -11,7 +11,7 @@ const FilterMenu = ({ onCostChange }) => {
     cost: [0, 100],
   });
 
-  // Function to handle checkbox changes for categories
+  // Handle checkbox changes
   const handleCheckboxChange = (category) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -20,10 +20,9 @@ const FilterMenu = ({ onCostChange }) => {
         [category]: !prevFilters.categories[category],
       },
     }));
-    console.log("Updated filters:", filters);
   };
 
-  // Function to handle cost slider changes
+  // Handle cost slider changes
   const handleCostChange = (e) => {
     const value = e.target.value;
     const newCostRange = [0, value];
@@ -31,55 +30,71 @@ const FilterMenu = ({ onCostChange }) => {
       ...prevFilters,
       cost: newCostRange,
     }));
-    onCostChange(newCostRange); // Call the passed handler
-    console.log("Updated filters:", filters);
+    onCostChange(newCostRange); // Call the parent handler
   };
 
   return (
-    <div>
-      <div className="filter-menu">
-        <h3>Filter Menu</h3>
-        <div className="filter-category">
-          <h4>Categories</h4>
-          <label>
+    <div className="bg-white w-full h-full py-4 overflow-y-auto">
+      {/* Search Bar */}
+      <div className="flex items-center bg-gray-100 rounded-full p-2 mb-6">
+        <FaSearch className="text-gray-500 ml-3" />
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder="Search Marketplace"
+          className="bg-transparent w-full pl-3 pr-4 py-1 text-sm text-gray-700 outline-none"
+        />
+      </div>
+
+      {/* Categories */}
+      <div>
+        <h4 className="text-lg font-bold mb-4">Categories</h4>
+        <div className="space-y-3">
+          <label className="flex items-center">
             <input
               type="checkbox"
               checked={filters.categories.products}
               onChange={() => handleCheckboxChange("products")}
+              className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2"
             />
             Products
           </label>
-          <label>
+          <label className="flex items-center">
             <input
               type="checkbox"
               checked={filters.categories.services}
               onChange={() => handleCheckboxChange("services")}
+              className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2"
             />
             Services
           </label>
-          <label>
+          <label className="flex items-center">
             <input
               type="checkbox"
               checked={filters.categories.studentBusinesses}
               onChange={() => handleCheckboxChange("studentBusinesses")}
+              className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2"
             />
             Student Businesses
           </label>
         </div>
+      </div>
 
-        <div className="filter-cost">
-          <h4>Cost</h4>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={filters.cost[1]}
-            onChange={handleCostChange}
-          />
-          <p>
-            Cost: ${filters.cost[0]} - ${filters.cost[1]}
-          </p>
-        </div>
+      {/* Cost */}
+      <div className="mt-6">
+        <h4 className="text-lg font-bold mb-4">Cost</h4>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={filters.cost[1]}
+          onChange={handleCostChange}
+          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <p className="text-sm text-gray-600 mt-2">
+          Cost: ${filters.cost[0]} - ${filters.cost[1]}
+        </p>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Navbar = () => {
   const { isAuth } = useSelector((state) => state.auth);
 
   return (
-    <nav className="bg-white py-2 shadow">
+    <nav className="bg-white py-2 z-10 fixed w-full shadow">
       <div className="container mx-auto flex justify-center">
         <div className="flex space-x-8">
           <NavLink
