@@ -6,39 +6,60 @@ import SearchAndFilter from "../components/SearchAndFilter";
 import "../stylesheets/Browse.css";
 
 const Browse = () => {
+  const [activeView, setActiveView] = useState("products"); // Tracks active view
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("New");
-  const [costRange, setCostRange] = useState([0, 100]); // New state for cost range
+  const [costRange, setCostRange] = useState([0, 100]);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
   const handleFilterClick = (filter) => setSelectedFilter(filter);
-  const handleCostChange = (newCostRange) => setCostRange(newCostRange); // New handler
+  const handleCostChange = (newCostRange) => setCostRange(newCostRange);
 
-  // Example products array (replace this with actual product data)
+  // Example data (replace this with actual data)
   const products = [...Array(10)].map((_, index) => ({
     id: index,
     title: "Cheese",
     description: "Swiss",
-    price: 10, // example price
+    price: 10,
+  }));
+  const services = [...Array(10)].map((_, index) => ({
+    id: index,
+    title: "Service",
+    description: "Professional Service",
+    price: 20,
   }));
 
-  // Filter products based on the selected cost range
-  const filteredProducts = products.filter((product) => {
-    return product.price >= costRange[0] && product.price <= costRange[1];
-  });
+  // Filter items based on the active view
+  const itemsToDisplay =
+    activeView === "products"
+      ? products.filter(
+          (product) => product.price >= costRange[0] && product.price <= costRange[1]
+        )
+      : services;
 
   return (
     <Layout>
-      <div className="products-container">
-        {/* Sidebar for Filter Menu */}
-        <aside className="sidebar">
-          <FilterMenu onCostChange={handleCostChange} />{" "}
-          {/* Pass the handler */}
-        </aside>
+      {/* Toggle Header */}
+      <div className="toggle-header">
+        <div
+          className={`toggle-option ${activeView === "products" ? "active" : ""}`}
+          onClick={() => setActiveView("products")}
+        >
+          Products
+        </div>
+        <div
+          className={`toggle-option ${activeView === "services" ? "active" : ""}`}
+          onClick={() => setActiveView("services")}
+        >
+          Services
+        </div>
+      </div>
 
-        {/* Main content area */}
+      <div className="products-container">
+        <aside className="sidebar">
+          <FilterMenu onCostChange={handleCostChange} />
+        </aside>
         <main className="main-content">
-          {/* Search and Filter Component */}
           <SearchAndFilter
             searchQuery={searchQuery}
             onSearchChange={handleSearchChange}
@@ -46,10 +67,9 @@ const Browse = () => {
             onFilterClick={handleFilterClick}
           />
 
-          {/* Product cards grid layout */}
           <div className="product-grid">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} /> // Pass product data
+            {itemsToDisplay.map((item) => (
+              <ProductCard key={item.id} product={item} />
             ))}
           </div>
         </main>

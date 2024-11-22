@@ -9,7 +9,6 @@ const SearchAndFilter = ({
 }) => {
   return (
     <div className="search-filter-container">
-      <h1 className="search-title">Products</h1>
 
       {/* Search Input */}
       <input

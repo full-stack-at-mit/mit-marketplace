@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../stylesheets/FilterMenu.css";
 
 const FilterMenu = ({ onCostChange }) => {
-  // Accept the handler as a prop
   const [filters, setFilters] = useState({
     categories: {
       products: true,
@@ -11,6 +10,8 @@ const FilterMenu = ({ onCostChange }) => {
     },
     cost: [0, 100],
   });
+
+  const [activeToggle, setActiveToggle] = useState("products"); // Track active toggle
 
   // Function to handle checkbox changes for categories
   const handleCheckboxChange = (category) => {
@@ -37,48 +38,50 @@ const FilterMenu = ({ onCostChange }) => {
   };
 
   return (
-    <div className="filter-menu">
-      <h3>Filter Menu</h3>
-      <div className="filter-category">
-        <h4>Categories</h4>
-        <label>
-          <input
-            type="checkbox"
-            checked={filters.categories.products}
-            onChange={() => handleCheckboxChange("products")}
-          />
-          Products
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filters.categories.services}
-            onChange={() => handleCheckboxChange("services")}
-          />
-          Services
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={filters.categories.studentBusinesses}
-            onChange={() => handleCheckboxChange("studentBusinesses")}
-          />
-          Student Businesses
-        </label>
-      </div>
+    <div>
+      <div className="filter-menu">
+        <h3>Filter Menu</h3>
+        <div className="filter-category">
+          <h4>Categories</h4>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.categories.products}
+              onChange={() => handleCheckboxChange("products")}
+            />
+            Products
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.categories.services}
+              onChange={() => handleCheckboxChange("services")}
+            />
+            Services
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.categories.studentBusinesses}
+              onChange={() => handleCheckboxChange("studentBusinesses")}
+            />
+            Student Businesses
+          </label>
+        </div>
 
-      <div className="filter-cost">
-        <h4>Cost</h4>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={filters.cost[1]}
-          onChange={handleCostChange}
-        />
-        <p>
-          Cost: ${filters.cost[0]} - ${filters.cost[1]}
-        </p>
+        <div className="filter-cost">
+          <h4>Cost</h4>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={filters.cost[1]}
+            onChange={handleCostChange}
+          />
+          <p>
+            Cost: ${filters.cost[0]} - ${filters.cost[1]}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -11,6 +11,8 @@ const { PORT, CLIENT_URL } = require("./constants");
 // import routes
 const authRoutes = require("./routes/auth");
 
+const productRoutes = require("./routes/products");
+
 // initialize middlewares
 app.use(express.json());
 app.use(cookieParser());
@@ -19,6 +21,7 @@ app.use(cors({ origin: CLIENT_URL, credentials: true }));
 
 // initialize routes
 app.use("/api", authRoutes);
+app.use("/api", productRoutes);
 
 // start the app
 const appStart = () => {

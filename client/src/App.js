@@ -12,6 +12,7 @@ import Register from "./pages/Register.js";
 import Login from "./pages/Login.js";
 import Browse from "./pages/Browse.js";
 import Survey from "./pages/Survey.js";
+import UploadForm from "./pages/UploadForm.js";
 import { useSelector } from "react-redux";
 
 const PrivateRoutes = () => {
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/browse" element={<Browse />} />
+          <Route path="/upload" element={<UploadForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
