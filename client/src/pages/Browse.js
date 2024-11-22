@@ -1,54 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import FilterMenu from "../components/FilterMenu";
 import ProductCard from "../components/ItemCard";
 import SearchAndFilter from "../components/SearchAndFilter";
 import "../stylesheets/Browse.css";
+import { getAllProducts } from "../api/products";
 
 const Browse = () => {
-  const [activeView, setActiveView] = useState("products"); // Tracks active view
+  const [activeView, setActiveView] = useState("products");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("New");
   const [costRange, setCostRange] = useState([0, 100]);
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllProducts();
+        console.log("Fetched data:", response.data); // Log the response for debugging
+        setProducts(response.data.products || []); // Ensure default to an empty array
+        setServices(response.data.services || []);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
   const handleFilterClick = (filter) => setSelectedFilter(filter);
   const handleCostChange = (newCostRange) => setCostRange(newCostRange);
 
-  // Example data (replace this with actual data)
-  const products = [...Array(10)].map((_, index) => ({
-    id: index,
-    title: "Cheese",
-    description: "Swiss",
-    price: 10,
-  }));
-  const services = [...Array(10)].map((_, index) => ({
-    id: index,
-    title: "Service",
-    description: "Professional Service",
-    price: 20,
-  }));
-
-  // Filter items based on the active view
   const itemsToDisplay =
     activeView === "products"
-      ? products.filter(
-          (product) => product.price >= costRange[0] && product.price <= costRange[1]
+      ? (products || []).filter(
+          (product) =>
+            product.price >= costRange[0] &&
+            product.price <= costRange[1] &&
+            (product.title?.toLowerCase() || "").includes(
+              searchQuery.toLowerCase()
+            )
         )
-      : services;
+      : (services || []).filter((service) =>
+          (service.title?.toLowerCase() || "").includes(
+            searchQuery.toLowerCase()
+          )
+        );
 
   return (
     <Layout>
       {/* Toggle Header */}
       <div className="toggle-header">
         <div
-          className={`toggle-option ${activeView === "products" ? "active" : ""}`}
+          className={`toggle-option ${
+            activeView === "products" ? "active" : ""
+          }`}
           onClick={() => setActiveView("products")}
         >
           Products
         </div>
         <div
-          className={`toggle-option ${activeView === "services" ? "active" : ""}`}
+          className={`toggle-option ${
+            activeView === "services" ? "active" : ""
+          }`}
           onClick={() => setActiveView("services")}
         >
           Services

@@ -11,8 +11,6 @@ const FilterMenu = ({ onCostChange }) => {
     cost: [0, 100],
   });
 
-  const [activeToggle, setActiveToggle] = useState("products"); // Track active toggle
-
   // Function to handle checkbox changes for categories
   const handleCheckboxChange = (category) => {
     setFilters((prevFilters) => ({

@@ -8,3 +8,18 @@ export async function createProduct(productData) {
     productData
   );
 }
+
+// gets both products and services
+export async function getAllProducts() {
+  return await axios.get(
+    "http://localhost:8000/api/get-all-products"
+  );
+}
+
+export const getProducts = async () => {
+  return await axios.get("http://localhost:8000/api/products");
+};
+
+export const getServices = async () => {
+  return await axios.get("http://localhost:8000/api/services");
+};

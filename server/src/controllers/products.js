@@ -66,3 +66,41 @@ exports.createProduct = async (req, res) => {
       .json({ error: "An error occurred while creating the product" });
   }
 };
+
+exports.getProducts = async (req, res) => {
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM upload_items WHERE category = 'product'"
+    );
+
+    if (rows.length === 0) {
+      console.warn("No products found.");
+    }
+
+    return res.status(200).json({ success: true, products: rows });
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching products" });
+  }
+};
+
+exports.getServices = async (req, res) => {
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM upload_items WHERE category = 'service'"
+    );
+
+    if (rows.length === 0) {
+      console.warn("No services found.");
+    }
+
+    return res.status(200).json({ success: true, services: rows });
+  } catch (error) {
+    console.error("Error fetching services:", error.message);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching services" });
+  }
+};
