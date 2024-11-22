@@ -36,13 +36,12 @@ const App = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/survey" element={<Survey />} />
+          <Route path="/browse" element={<Browse />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          // change this back to private routes for production
-          <Route path="/browse" element={<Browse />} />
         </Route>
       </Routes>
     </BrowserRouter>
