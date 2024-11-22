@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const passport = require("passport");
+const multer = require('multer');
 require("./middlewares/passport-middleware");
 
 // import our constants

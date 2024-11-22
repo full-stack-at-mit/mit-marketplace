@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../stylesheets/UploadForm.css";
+import { createProduct } from "../api/products";
 
 const UploadForm = () => {
   const [formData, setFormData] = useState({
@@ -31,47 +32,29 @@ const UploadForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('submitted')
     e.preventDefault();
 
-    // Prepare formData for submission
-    const formDataToSubmit = new FormData();
-    formDataToSubmit.append("name", formData.name);
-    formDataToSubmit.append("price", formData.price);
-    formDataToSubmit.append("description", formData.description);
-    formDataToSubmit.append("contact", formData.contact);
-    formDataToSubmit.append("category", formData.category);
-    formDataToSubmit.append("condition", formData.condition);
-    formDataToSubmit.append("pickupDetails", formData.pickupDetails);
-    formDataToSubmit.append("dateAdded", formData.dateAdded);
-
-    // Handle images
-    formData.images.forEach((image, index) => {
-      formDataToSubmit.append("images", image);
-    });
-
-    console.log(formDataToSubmit)
+    const payload = {
+      name: formData.name,
+      price: formData.price,
+      description: formData.description,
+      contact: formData.contact,
+      category: formData.category,
+      condition: formData.condition,
+      pickupDetails: formData.pickupDetails,
+      dateAdded: formData.dateAdded,
+      images: formData.images.map((file) => file.name),
+    };
 
     try {
-      // Make POST request to the backend API (assuming your backend runs on localhost:3000)
-      const response = await fetch("http://localhost:3000/create-product", {
-        method: "POST",
-        body: formDataToSubmit,
-      });
+      const result = await createProduct(payload); // Call createProduct function
+      console.log("Product created successfully:", result.data);
 
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Product created successfully:", result);
-        // Optionally, reset the form or show a success message
-      } else {
-        console.error("Error:", result.error || "Something went wrong");
-      }
+      // Optionally, reset the form or show a success message
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
   };
-
 
   return (
     <div className="upload-form-container">

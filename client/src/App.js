@@ -38,13 +38,13 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/survey" element={<Survey />} />
           <Route path="/browse" element={<Browse />} />
+          <Route path="/upload" element={<UploadForm />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/browse" element={<Browse />} />
-          <Route path="/upload" element={<UploadForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
