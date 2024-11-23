@@ -35,18 +35,18 @@ const Navbar = () => {
                 <span className="text-sm mt-1">Browse</span>
               </NavLink>
               <NavLink
-                to="/dashboard"
-                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
-              >
-                <FaTachometerAlt className="text-2xl" />
-                <span className="text-sm mt-1">Dashboard</span>
-              </NavLink>
-              <NavLink
                 to="/upload"
                 className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
               >
                 <FaUpload className="text-2xl" />
                 <span className="text-sm mt-1">Upload</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard"
+                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+              >
+                <FaTachometerAlt className="text-2xl" />
+                <span className="text-sm mt-1">Dashboard</span>
               </NavLink>
             </>
           ) : (

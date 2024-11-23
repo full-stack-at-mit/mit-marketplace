@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { fetchProtectedInfo, onLogout, updateProtectedInfo } from "../api/auth";
 import Layout from "../components/Layout";
 import { unauthenticateUser } from "../redux/slices/authSlice";
-import "../stylesheets/Dashboard.css";
 import Profile from "../assets/default_profile.jpg";
 
 const ProfileSection = ({ profile, resetProfile }) => {
@@ -29,21 +28,25 @@ const ProfileSection = ({ profile, resetProfile }) => {
 
   if (!isUpdating) {
     return (
-      <div className="profile-section pt-16">
-        <div className="profile-photo">
-          <img src={profile.profilePhoto || Profile} alt="Profile" />
+      <div className="profile-section bg-white shadow rounded-lg p-6 pt-36">
+        <div className="flex items-center space-x-4">
+          <img
+            src={profile.profilePhoto || Profile}
+            alt="Profile"
+            className="w-16 h-16 rounded-full object-cover"
+          />
+          <div>
+            <h3 className="text-lg font-semibold">
+              {profile.first_name || "Firstname"}{" "}
+              {profile.last_name || "Lastname"}
+            </h3>
+            <p className="text-sm text-gray-600">Email: {profile.email}</p>
+          </div>
         </div>
-        <div className="profile-details">
-          <h3>
-            {profile.first_name || "Firstname"}{" "}
-            {profile.last_name || "Lastname"}
-          </h3>
-          <p>Email: {profile.email}</p>
-        </div>
-        <div className="u-flex u-width-fit u-justify-end">
+        <div className="mt-4 flex justify-end">
           <button
             onClick={() => setIsUpdating(true)}
-            className="btn btn-primary"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Update
           </button>
@@ -52,33 +55,39 @@ const ProfileSection = ({ profile, resetProfile }) => {
     );
   } else {
     return (
-      <div className="profile-section">
-        <div className="profile-photo">
-          <img src={profile.profilePhoto || Profile} alt="Profile" />
-        </div>
-        <div className="profile-details">
-          <input
-            type="text"
-            defaultValue={profile.first_name || "Firstname"}
-            ref={firstRef}
+      <div className="profile-section bg-white shadow rounded-lg p-6 pt-36">
+        <div className="flex items-center space-x-4">
+          <img
+            src={profile.profilePhoto || Profile}
+            alt="Profile"
+            className="w-16 h-16 rounded-full object-cover"
           />
-          <input
-            type="text"
-            defaultValue={profile.last_name || "Lastname"}
-            ref={lastRef}
-          />
-          <p>
-            <b>Email:</b> {profile.email}
-          </p>
+          <div className="space-y-2">
+            <input
+              type="text"
+              defaultValue={profile.first_name || "Firstname"}
+              ref={firstRef}
+              className="border rounded p-2 w-full"
+            />
+            <input
+              type="text"
+              defaultValue={profile.last_name || "Lastname"}
+              ref={lastRef}
+              className="border rounded p-2 w-full"
+            />
+          </div>
         </div>
-        <div className="u-flex u-width-fit u-justify-end">
+        <div className="mt-4 flex justify-end space-x-2">
           <button
             onClick={() => setIsUpdating(false)}
-            className="btn btn-primary cancel-button"
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
           >
             Cancel
           </button>
-          <button onClick={update} className="btn btn-primary">
+          <button
+            onClick={update}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
             Submit
           </button>
         </div>
@@ -86,6 +95,7 @@ const ProfileSection = ({ profile, resetProfile }) => {
     );
   }
 };
+
 const IntroSection = ({ profile, resetProfile }) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const interestsRef = useRef(null);
@@ -99,9 +109,7 @@ const IntroSection = ({ profile, resetProfile }) => {
         last_name: profile.last_name,
         interests: interestsRef.current.value,
       });
-      // refresh profile data
       resetProfile();
-      // close the update form
       setIsUpdating(false);
     } catch (error) {
       console.error("Failed to update intro:", error);
@@ -110,13 +118,13 @@ const IntroSection = ({ profile, resetProfile }) => {
 
   if (!isUpdating) {
     return (
-      <div className="intro-section">
-        <h3>Intro</h3>
-        <p>{profile.interests || "Add bio"}</p>
-        <div className="u-flex u-justify-end">
+      <div className="intro-section bg-white shadow rounded-lg p-6">
+        <h3 className="text-lg font-semibold mb-2">Intro</h3>
+        <p className="text-gray-700">{profile.interests || "Add bio"}</p>
+        <div className="mt-4 flex justify-end">
           <button
             onClick={() => setIsUpdating(true)}
-            className="btn btn-primary"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Update
           </button>
@@ -125,21 +133,24 @@ const IntroSection = ({ profile, resetProfile }) => {
     );
   } else {
     return (
-      <div className="intro-section">
-        <h3>Intro</h3>
+      <div className="intro-section bg-white shadow rounded-lg p-6">
+        <h3 className="text-lg font-semibold mb-2">Intro</h3>
         <textarea
           ref={interestsRef}
           defaultValue={profile.interests}
-          className="u-block"
+          className="border rounded p-2 w-full"
         ></textarea>
-        <div className="u-flex u-justify-end">
+        <div className="mt-4 flex justify-end space-x-2">
           <button
             onClick={() => setIsUpdating(false)}
-            className="btn btn-primary cancel-button"
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
           >
             Cancel
           </button>
-          <button onClick={update} className="btn btn-primary">
+          <button
+            onClick={update}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
             Submit
           </button>
         </div>
@@ -175,32 +186,38 @@ const Dashboard = () => {
 
   useEffect(() => {
     getProtectedInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
     return (
       <Layout>
-        <h1>Loading...</h1>
+        <div className="h-screen flex justify-center items-center">
+          <h1 className="text-2xl font-bold">Loading...</h1>
+        </div>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <div className="dashboard-container">
+      <div className="dashboard-container max-w-5xl mx-auto space-y-6">
         <ProfileSection
           profile={protectedData}
           resetProfile={getProtectedInfo}
         />
         <IntroSection profile={protectedData} resetProfile={getProtectedInfo} />
-        <div className="posts-section">
-          <h3>Posts</h3>
-          <p>No posts available</p>
+        <div className="posts-section bg-white shadow rounded-lg p-6">
+          <h3 className="text-lg font-semibold mb-2">Posts</h3>
+          <p className="text-gray-700">No posts available</p>
         </div>
-        <button onClick={logout} className="btn btn-primary">
-          Logout
-        </button>
+        <div className="flex justify-end">
+          <button
+            onClick={logout}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </Layout>
   );
