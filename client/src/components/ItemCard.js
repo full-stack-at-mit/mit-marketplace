@@ -1,5 +1,6 @@
 import React from "react";
 import "../stylesheets/ItemCard.css";
+import Cheese from "../assets/healthiest-cheese-swiss.jpg";
 
 const ItemCard = ({ product }) => {
   return (
@@ -7,7 +8,7 @@ const ItemCard = ({ product }) => {
       <div className="img-container">
         <img
           className="product-image"
-          src={product.image || "default-image-url.jpg"}
+          src={product.image || Cheese}
           alt={product.title}
         />
       </div>

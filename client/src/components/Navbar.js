@@ -19,7 +19,11 @@ const Navbar = () => {
         <div className="flex space-x-8">
           <NavLink
             to="/"
-            className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+            className={({ isActive }) =>
+              `flex flex-col items-center ${
+                isActive ? "text-blue-500" : "text-gray-500"
+              } hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded`
+            }
           >
             <FaHome className="text-2xl" />
             <span className="text-sm mt-1">Home</span>
@@ -29,21 +33,33 @@ const Navbar = () => {
             <>
               <NavLink
                 to="/browse"
-                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+                className={({ isActive }) =>
+                  `flex flex-col items-center ${
+                    isActive ? "text-blue-500" : "text-gray-500"
+                  } hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded`
+                }
               >
                 <FaSearch className="text-2xl" />
                 <span className="text-sm mt-1">Browse</span>
               </NavLink>
               <NavLink
                 to="/upload"
-                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+                className={({ isActive }) =>
+                  `flex flex-col items-center ${
+                    isActive ? "text-blue-500" : "text-gray-500"
+                  } hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded`
+                }
               >
                 <FaUpload className="text-2xl" />
                 <span className="text-sm mt-1">Upload</span>
               </NavLink>
               <NavLink
                 to="/dashboard"
-                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+                className={({ isActive }) =>
+                  `flex flex-col items-center ${
+                    isActive ? "text-blue-500" : "text-gray-500"
+                  } hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded`
+                }
               >
                 <FaTachometerAlt className="text-2xl" />
                 <span className="text-sm mt-1">Dashboard</span>
@@ -53,14 +69,22 @@ const Navbar = () => {
             <>
               <NavLink
                 to="/login"
-                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+                className={({ isActive }) =>
+                  `flex flex-col items-center ${
+                    isActive ? "text-blue-500" : "text-gray-500"
+                  } hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded`
+                }
               >
                 <FaSignInAlt className="text-2xl" />
                 <span className="text-sm mt-1">Login</span>
               </NavLink>
               <NavLink
                 to="/register"
-                className="flex flex-col items-center text-gray-500 hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded"
+                className={({ isActive }) =>
+                  `flex flex-col items-center ${
+                    isActive ? "text-blue-500" : "text-gray-500"
+                  } hover:text-blue-500 transition hover:bg-gray-200 p-2 rounded`
+                }
               >
                 <FaUserPlus className="text-2xl" />
                 <span className="text-sm mt-1">Sign up</span>
