@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "../stylesheets/SingleItemPage.css";
 import { useParams } from "react-router-dom";
 import { getItemByID } from "../api/products";
+import { CalendarIcon, MapPinIcon, PhoneIcon, TagIcon } from 'lucide-react'
+
 
 const SingleItemPage = () => {
   const { id } = useParams()
@@ -30,15 +32,99 @@ const SingleItemPage = () => {
     <div>
       {items ? (
         <>
-          <h1 >{items.name}</h1>
-          <h2 className="text-gray-300 font-bold w-16">Cost: $1000</h2>
-          <h2>Contact Jensen Coonradt at coonradt@mit.edu to purchase</h2>
-          <br />
-          <p>Description: This item is a one-of-a-kind banana duck. Banana ducks are the most glorious animal on this planet, so you should appreciate this glorious item</p>
-          <img
-            src="https://www.kawaiies.com/cdn/shop/products/kawaiies-plushies-plush-softtoy-fluffy-banana-duck-crew-plushies-soft-toy-388339.jpg?v=1661877645"
-            alt="Banana Duck"
-          />
+        <div className="container mx-auto px-4 py-8">
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <div className="aspect-square relative overflow-hidden rounded-lg">
+            <img
+              src={"https://www.kawaiies.com/cdn/shop/products/kawaiies-plushies-plush-softtoy-fluffy-banana-duck-crew-plushies-soft-toy-388339.jpg?v=1661877645"}
+              alt={items.name}
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+           
+              <div className="aspect-square relative overflow-hidden rounded-lg">
+                <img
+                  src="https://www.kawaiies.com/cdn/shop/products/kawaiies-plushies-plush-softtoy-fluffy-banana-duck-crew-plushies-soft-toy-180373.jpg?v=1661877744"
+                  alt={items.name}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+
+              <div className="aspect-square relative overflow-hidden rounded-lg">
+                <img
+                  src="https://m.media-amazon.com/images/I/816b2L6qlcL.jpg"
+                  alt={items.name}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+
+              <div className="aspect-square relative overflow-hidden rounded-lg">
+                <img
+                  src="https://www.bigsquishies.com/cdn/shop/products/O1CN01R5Blk029AsN9QDF4F__409278028.jpg?v=1710747517&width=416"
+                  alt={items.name}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+          
+          </div>
+        </div>
+        <div className="space-y-6">
+          <h1 className="text-3xl font-bold">Banana Duck {items.name}</h1>
+          <p className="text-2xl font-semibold text-green-600">$1000{items.price}</p>
+          <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+            New {items.condition}
+          </span>
+          <p className="text-gray-600">The best plushie in the world{items.description}</p>
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">Product Details</h3>
+            </div>
+            <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+              <dl className="sm:divide-y sm:divide-gray-200">
+                <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <TagIcon className="h-5 w-5 text-gray-400 mr-2" />
+                    Category
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Product{items.category}</dd>
+                </div>
+                <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <CalendarIcon className="h-5 w-5 text-gray-400 mr-2" />
+                    Date Added
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">11/24/24{items.dateAdded}</dd>
+                </div>
+                <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <MapPinIcon className="h-5 w-5 text-gray-400 mr-2" />
+                    Pickup
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">NEVER it will be mine forver{items.pickupDetails}</dd>
+                </div>
+                <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <PhoneIcon className="h-5 w-5 text-gray-400 mr-2" />
+                    Contact
+                  </dt>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">coonradt@mit.edu{items.contact}</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+       
+         
         </>
       ) : (
         <p>Loading item...</p>
