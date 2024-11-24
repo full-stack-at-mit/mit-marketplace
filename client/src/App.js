@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home.js";
+import SingleItemPage from "./pages/SingleItemPage.js"
 import Dashboard from "./pages/Dashboard.js";
 import Register from "./pages/Register.js";
 import Login from "./pages/Login.js";
@@ -29,6 +30,7 @@ const RestrictedRoutes = () => {
   return <>{!isAuth ? <Outlet /> : <Navigate to="/dashboard" />}</>;
 };
 
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -40,6 +42,7 @@ const App = () => {
           <Route path="/survey" element={<Survey />} />
           <Route path="/browse" element={<Browse />} />
           <Route path="/upload" element={<UploadForm />} />
+          <Route path="/item/:id" element={<SingleItemPage />} />
         </Route>
 
         <Route element={<RestrictedRoutes />}>

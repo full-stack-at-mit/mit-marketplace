@@ -9,6 +9,12 @@ export async function createProduct(productData) {
   );
 }
 
+export async function getItemByID(id) {
+  return await axios.get(
+    `http://localhost:8000/api/get-item/${id}`
+  );
+}
+
 // gets both products and services
 export async function getAllProducts() {
   return await axios.get(
