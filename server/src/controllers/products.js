@@ -1,5 +1,6 @@
 const db = require("../db");
 
+
 exports.getAllProducts = async (req, res) => {
   try {
     const { rows } = await db.query("SELECT * FROM upload_items");
@@ -83,6 +84,27 @@ exports.getProducts = async (req, res) => {
     return res
       .status(500)
       .json({ error: "An error occurred while fetching products" });
+  }
+};
+
+exports.getItemByID = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM upload_items WHERE id = $1",
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: "Item not found" });
+    }
+
+    return res.status(200).json({ success: true, items: rows });
+  } catch (error) {
+    console.error("Error fetching item:", error.message);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching the item" });
   }
 };
 
