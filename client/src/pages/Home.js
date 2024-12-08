@@ -60,14 +60,16 @@ const Home = () => {
             <p className="text-gray-600 mb-6">
               Our mission is to empower students by creating a space where they can share, sell, and support each other's work. We believe in the strength of the college community and aim to provide a supportive platform for students.
             </p>
-            <nav className="hidden md:flex space-x-40">
+            <nav className="hidden md:flex space-x-1">
+            <NavLink to="/login" >
             <button className="px-4 py-2 text-blue-600 border border-blue-600 rounded hover:bg-blue-600 hover:text-white transition-colors">
               Log In
-            </button>
-            <br></br>
+            </button></NavLink>
+            
+            <NavLink to="/register" >
             <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors ml-4">
               Sign Up
-            </button>
+            </button></NavLink>
           </nav>
           </div>
           <div className="bg-blue-200 h-64 rounded-lg flex items-center justify-center">
