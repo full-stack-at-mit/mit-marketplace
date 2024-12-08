@@ -10,7 +10,7 @@ const ItemCard = ({ product }) => {
       <div className="img-container">
         <img
           className="product-image"
-          src={product.image || Cheese}
+          src={"https://plushiepulse.com/wp-content/uploads/2023/11/S628b97b2356846ffbac8ed47f6769954v.webp"}
           alt={product.title}
         />
       </div>
