@@ -1,9 +1,12 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../stylesheets/UploadForm.css";
 import { createProduct } from "../api/products";
 import Layout from "../components/Layout";
 
 const UploadForm = () => {
+  const navigate = useNavigate(); // Initialize navigate function
+
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -63,7 +66,8 @@ const UploadForm = () => {
       const result = await createProduct(payload); // Call createProduct function
       console.log("Product created successfully:", result.data);
 
-      // Optionally, reset the form or show a success message
+      // Redirect to the dashboard
+      navigate("/dashboard"); // Redirect to the dashboard route
     } catch (error) {
       console.error("Error submitting the form:", error);
     }
