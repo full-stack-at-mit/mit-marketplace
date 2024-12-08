@@ -14,7 +14,8 @@ const SingleItemPage = () => {
       try {
         const response = await getItemByID(id);
         if (response.data.success) {
-          setItems(response.data.items);
+          setItems(response.data.items[0]);
+          console.log(response.data.items[0]);
         } else {
           console.error(response.data.message);
           setItems(null);
@@ -76,12 +77,12 @@ const SingleItemPage = () => {
           </div>
         </div>
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold">Banana Duck {items.name}</h1>
-          <p className="text-2xl font-semibold text-green-600">$1000{items.price}</p>
+          <h1 className="text-3xl font-bold">{items.name}</h1>
+          <p className="text-2xl font-semibold text-green-600">${items.price}</p>
           <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
             New {items.condition}
           </span>
-          <p className="text-gray-600">The best plushie in the world{items.description}</p>
+          <p className="text-gray-600">{items.description}</p>
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900">Product Details</h3>
@@ -91,30 +92,30 @@ const SingleItemPage = () => {
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
                     <TagIcon className="h-5 w-5 text-gray-400 mr-2" />
-                    Category
+                    {items.category}
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Product{items.category}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{items.category}</dd>
                 </div>
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
                     <CalendarIcon className="h-5 w-5 text-gray-400 mr-2" />
                     Date Added
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">11/24/24{items.dateAdded}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{items.dateAdded}</dd>
                 </div>
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
                     <MapPinIcon className="h-5 w-5 text-gray-400 mr-2" />
                     Pickup
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">NEVER it will be mine forver{items.pickupDetails}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{items.pickupDetails}</dd>
                 </div>
                 <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500 flex items-center">
                     <PhoneIcon className="h-5 w-5 text-gray-400 mr-2" />
                     Contact
                   </dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">coonradt@mit.edu{items.contact}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{items.contact}</dd>
                 </div>
               </dl>
             </div>
