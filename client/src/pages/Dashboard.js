@@ -1,23 +1,35 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProtectedInfo, onLogout, updateProtectedInfo } from "../api/auth";
+import { uploadImageS3 } from "../api/products";
 import Layout from "../components/Layout";
 import { unauthenticateUser } from "../redux/slices/authSlice";
 import Profile from "../assets/default_profile.jpg";
 
 const ProfileSection = ({ profile, resetProfile }) => {
   const [isUpdating, setIsUpdating] = useState(false);
+  const [image, setImage] = useState(null);
   const firstRef = useRef(null),
     lastRef = useRef(null);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
 
   const update = async () => {
     if (!(firstRef && firstRef.current && lastRef && lastRef.current)) return;
 
     try {
+      let new_profilephoto = profile.profilephoto;
+      if (image) {
+        new_profilephoto = await uploadImageS3(image);
+      }
       await updateProtectedInfo({
         first_name: firstRef.current.value,
         last_name: lastRef.current.value,
         interests: profile.interests,
+        profilephoto: new_profilephoto,
       });
       resetProfile();
       setIsUpdating(false);
@@ -26,14 +38,15 @@ const ProfileSection = ({ profile, resetProfile }) => {
     }
   };
 
+  console.log("profile:", profile);
   if (!isUpdating) {
     return (
       <div className="profile-section bg-white shadow rounded-lg p-6 pt-36">
         <div className="flex items-center space-x-4">
           <img
-            src={profile.profilePhoto || Profile}
+            src={profile.profilephoto || Profile}
             alt="Profile"
-            className="w-16 h-16 rounded-full object-cover"
+            className="w-20 h-20 rounded-full object-cover"
           />
           <div>
             <h3 className="text-lg font-semibold">
@@ -57,11 +70,16 @@ const ProfileSection = ({ profile, resetProfile }) => {
     return (
       <div className="profile-section bg-white shadow rounded-lg p-6 pt-36">
         <div className="flex items-center space-x-4">
-          <img
-            src={profile.profilePhoto || Profile}
-            alt="Profile"
-            className="w-16 h-16 rounded-full object-cover"
-          />
+          <div className="u-flex-column">
+            <img
+              src={profile.profilephoto || Profile}
+              alt="Profile"
+              className="w-20 h-20 rounded-full object-cover"
+            />
+            <div className="linebreak-2"></div>
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+          </div>
+
           <div className="space-y-2">
             <input
               type="text"
@@ -208,6 +226,7 @@ const Dashboard = () => {
         <IntroSection profile={protectedData} resetProfile={getProtectedInfo} />
         <div className="posts-section bg-white shadow rounded-lg p-6">
           <h3 className="text-lg font-semibold mb-2">Posts</h3>
+          <div className="u-flex"></div>
           <p className="text-gray-700">No posts available</p>
         </div>
         <div className="flex justify-end">
@@ -218,6 +237,7 @@ const Dashboard = () => {
             Logout
           </button>
         </div>
+        <br />
       </div>
     </Layout>
   );

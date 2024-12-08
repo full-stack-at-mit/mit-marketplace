@@ -1,7 +1,11 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../stylesheets/UploadForm.css";
-import { createProduct } from "../api/products";
+import {
+  createProduct,
+  generatePresignedUrl,
+  uploadImageS3,
+} from "../api/products";
 import Layout from "../components/Layout";
 
 const UploadForm = () => {
@@ -47,8 +51,23 @@ const UploadForm = () => {
     }));
   };
 
+  const handleImageSubmit = async (files) => {
+    const fileUrls = [];
+    for (let file of files) {
+      const accessUrl = await uploadImageS3(file);
+      fileUrls.push(accessUrl);
+    }
+    return fileUrls;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (formData.images.length > 4) {
+      alert("You can submit at most 4 images!");
+      return;
+    }
+    const imageUrls = await handleImageSubmit(formData.images);
 
     const payload = {
       name: formData.name,
@@ -59,7 +78,7 @@ const UploadForm = () => {
       condition: formData.condition,
       pickupDetails: formData.pickupDetails,
       dateAdded: formData.dateAdded,
-      images: formData.images.map((file) => file.name),
+      images: imageUrls,
     };
 
     try {

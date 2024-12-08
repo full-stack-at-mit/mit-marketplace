@@ -22,7 +22,7 @@ passport.use(
     try {
       // fetch user details, including profile information
       const { rows } = await db.query(
-        "SELECT user_id, email, first_name, last_name, interests FROM users WHERE user_id = $1",
+        "SELECT user_id, email, first_name, last_name, interests, profilephoto FROM users WHERE user_id = $1",
         [id]
       );
 
@@ -37,6 +37,7 @@ passport.use(
         first_name: rows[0].first_name,
         last_name: rows[0].last_name,
         interests: rows[0].interests,
+        profilephoto: rows[0].profilephoto,
       };
 
       return await done(null, user);

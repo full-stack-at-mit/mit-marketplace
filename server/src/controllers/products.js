@@ -1,6 +1,5 @@
 const db = require("../db");
 
-
 exports.getAllProducts = async (req, res) => {
   try {
     const { rows } = await db.query("SELECT * FROM upload_items");
@@ -96,7 +95,9 @@ exports.getItemByID = async (req, res) => {
     );
 
     if (rows.length === 0) {
-      return res.status(404).json({ success: false, message: "Item not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Item not found" });
     }
 
     return res.status(200).json({ success: true, items: rows });
@@ -109,6 +110,7 @@ exports.getItemByID = async (req, res) => {
 };
 
 exports.getServices = async (req, res) => {
+  console.warn("received");
   try {
     const { rows } = await db.query(
       "SELECT * FROM upload_items WHERE category = 'service'"

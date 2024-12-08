@@ -25,6 +25,7 @@ exports.protected = async (req, res) => {
       first_name: req.user.first_name,
       last_name: req.user.last_name,
       interests: req.user.interests,
+      profilephoto: req.user.profilephoto,
     };
 
     // return the profile information
@@ -39,14 +40,14 @@ exports.protected = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-  const { first_name, last_name, interests } = req.body;
+  const { first_name, last_name, interests, profilephoto } = req.body;
   const userId = req.user.id;
 
   try {
     // update the user's profile information in the database
     const result = await db.query(
-      "UPDATE users SET first_name = $1, last_name = $2, interests = $3 WHERE user_id = $4 RETURNING user_id, email, first_name, last_name, interests",
-      [first_name, last_name, interests, userId]
+      "UPDATE users SET first_name = $1, last_name = $2, interests = $3, profilephoto = $4 WHERE user_id = $5 RETURNING user_id, email, first_name, last_name, interests",
+      [first_name, last_name, interests, profilephoto, userId]
     );
 
     // if no rows are returned, the user was not found

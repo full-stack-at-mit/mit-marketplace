@@ -6,7 +6,8 @@ create table users(
     created_at date default current_date,
     first_name varchar(50),
     last_name varchar(50),
-    interests text
+    interests text,
+    profilephoto text
 );
 
 CREATE TABLE upload_items (

@@ -2,7 +2,14 @@
 
 // imports
 const { Router } = require("express");
-const { getUsers, register, login, protected, logout, updateProfile } = require("../controllers/auth");
+const {
+  getUsers,
+  register,
+  login,
+  protected,
+  logout,
+  updateProfile,
+} = require("../controllers/auth");
 const { registerValidation, loginValidation } = require("../validators/auth");
 const {
   validationMiddleware,
