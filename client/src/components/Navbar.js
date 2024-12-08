@@ -15,8 +15,12 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white py-2 z-10 fixed w-full shadow">
-      <div className="container mx-auto flex justify-center">
-        <div className="flex space-x-8">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* College Marketplace Text aligned to the left */}
+        <h1 className="text-2xl font-bold text-blue-600">College Marketplace</h1>
+
+        {/* Centering the navigation items without considering the "College Marketplace" text */}
+        <div className="flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
           <NavLink
             to="/"
             className={({ isActive }) =>
