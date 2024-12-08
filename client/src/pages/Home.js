@@ -82,14 +82,9 @@ const Home = () => {
         <section className="text-center">
           <h3 className="text-3xl font-semibold text-gray-800 mb-6">Get Started</h3>
           <p className="text-gray-600 mb-8">
-            Explore the links below to learn more and get involved:
+            Use the browse page to see available products and services
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="#" className="text-blue-600 hover:underline">How It Works</Link>
-            <Link href="#" className="text-blue-600 hover:underline">Browse Products</Link>
-            <Link href="#" className="text-blue-600 hover:underline">Seller Guidelines</Link>
-            <Link href="#" className="text-blue-600 hover:underline">FAQ</Link>
-          </div>
+      
         </section>
       </main>
       
